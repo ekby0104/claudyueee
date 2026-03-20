@@ -5,6 +5,9 @@ from typing import Optional
 import anthropic
 import os
 import json
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI(title="Claude AI API", description="Python FastAPI + Claude AI 연동 백엔드")
 
