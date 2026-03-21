@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import Optional
 import anthropic
@@ -10,6 +11,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI(title="Claude AI API", description="Python FastAPI + Claude AI 연동 백엔드")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+@app.get("/")
+def root():
+    return FileResponse("static/index.html")
 
 client = anthropic.Anthropic(api_key=os.environ.get("ANTHROPIC_API_KEY"))
 
